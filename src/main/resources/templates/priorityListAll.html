@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new priority: </h1>
+    <p><a href="/priority/add">Add priority</a></p>
+
+    <h1>All priorities: </h1>
+
+    <table>
+        <th>
+            <td>Name</td>
+            <td>Active status</td>
+            <td>Tasks</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </th>
+        <tr th:each="priority : ${priorities}">
+            <td th:text="${priority.id}"/>
+            <td th:text="${priority.name}"/>
+            <td th:text="${priority.activeStatus}"/>
+            <td>
+                <ul>
+                    <li th:each="task : ${tasks}">
+                        <p th:text="|Task no: ${task.id}; Topic: ${task.topic}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td><a th:href="@{'/priority/edit/'+${priority.id}}">edit priority</a></td>
+            <td><a th:href="@{'/priority/delete/'+${priority.id}}">delete priority</a></td>
+
+        </tr>
+
+    </table>
+
+</section>
+</body>
+</html>

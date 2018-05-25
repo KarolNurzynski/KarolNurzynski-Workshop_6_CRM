@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Home page</h1>
+
+    <p><a href="/project/add">Add new project</a></p>
+    <p><a href="/task/add">Add new task</a></p>
+    <p><a href="/task/edit/1">Edit task</a></p>
+
+
+    <h1>Last 5 projects: </h1>
+
+    <table>
+        <th>
+            <td>Created</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Www</td>
+            <td>ProjectId</td>
+            <td>Users</td>
+            <td>Active status</td>
+            <td>Tasks</td>
+        </th>
+        <tr th:each="project : ${last5projects}">
+            <td th:text="${project.id}"/>
+            <td th:text="${project.created}"/>
+            <td th:text="${project.name}"/>
+            <td th:text="${project.description}"/>
+            <td th:text="${project.www}"/>
+            <td th:text="${project.projectId}"/>
+            <td>
+                <ul>
+                    <li th:each="user : ${project.users}">
+                        <p th:text="|User no: ${user.id}; Lastname: ${user.lastName}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td th:text="${project.activeStatus}"/>
+            <td>
+                <ul>
+                    <li th:each="task : ${project.tasks}">
+                        <p th:text="|Task no: ${task.id}; Topic: ${task.topic}|"></p>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+
+    </table>
+
+</section>
+</body>
+</html>

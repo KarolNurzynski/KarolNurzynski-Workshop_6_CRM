@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new priority</h1>
+
+    <form th:object="${priority}" method="post">
+
+        <p><input th:field="*{name}" placeholder="name">name</p>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect name</p>
+
+        <p><input type="checkbox" th:field="*{activeStatus}" placeholder="activeStatus">activeStatus</p>
+        <p th:if="${#fields.hasErrors('activeStatus')}" th:errors="*{activeStatus}">Incorrect activeStatus</p>
+
+        <p><input type="submit" value="submit"></p>
+
+
+    </form>
+
+</section>
+</body>
+</html>

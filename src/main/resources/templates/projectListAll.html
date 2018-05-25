@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new project: </h1>
+    <p><a href="/project/add">Add project</a></p>
+
+    <h1>All projects: </h1>
+
+    <table>
+        <th>
+            <td>Created</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Www</td>
+            <td>ProjectId</td>
+            <td>Users</td>
+            <td>Active status</td>
+            <td>Tasks</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </th>
+        <tr th:each="project : ${projects}">
+            <td th:text="${project.id}"/>
+            <td th:text="${project.created}"/>
+            <td th:text="${project.name}"/>
+            <td th:text="${project.description}"/>
+            <td th:text="${project.www}"/>
+            <td th:text="${project.projectId}"/>
+            <td>
+                <ul>
+                    <li th:each="user : ${project.users}">
+                        <p th:text="|User no: ${user.id}; Lastname: ${user.lastName}|"></p>
+                        <a th:href="@{'/task/edit/'+${user.id}}">edit user</a>
+                    </li>
+                </ul>
+            </td>
+            <td th:text="${project.activeStatus}"/>
+            <td>
+                <ul>
+                    <li th:each="task : ${project.tasks}">
+                        <p th:text="|Task no: ${task.id}; Topic: ${task.topic}|"></p>
+                        <a th:href="@{'/task/edit/'+${task.id}}">edit task</a>
+                    </li>
+                </ul>
+            </td>
+            <td><a th:href="@{'/project/edit/'+${project.id}}">edit project</a></td>
+            <td><a th:href="@{'/project/delete/'+${project.id}}">delete project</a></td>
+
+
+        </tr>
+
+    </table>
+
+</section>
+</body>
+</html>

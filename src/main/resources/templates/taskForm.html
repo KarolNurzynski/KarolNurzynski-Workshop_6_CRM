@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new task</h1>
+
+    <form th:object="${task}" method="post">
+
+        <p><input th:field="*{topic}" placeholder="topic">topic</p>
+        <p th:if="${#fields.hasErrors('topic')}" th:errors="*{topic}">Incorrect topic</p>
+
+        <p><input th:field="*{description}" placeholder="description">description</p>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Incorrect description</p>
+
+        <select th:field="*{project}">
+            <option th:each="project : ${projects}"
+                    th:value="${project.id}"
+                    th:text="${project.projectId}">Choose project...</option>
+        </select>
+
+        <select th:field="*{priority}">
+            <option th:each="priority : ${priorities}"
+                    th:value="${priority.id}"
+                    th:text="${priority.name}">Choose priority...</option>
+        </select>
+
+        <select th:field="*{user}">
+            <option th:each="user : ${users}"
+                    th:value="${user.id}"
+                    th:text="${user.lastName}">Choose user...</option>
+        </select>
+
+        <select th:field="*{status}">
+            <option th:each="status : ${statusallactive}"
+                    th:value="${status.id}"
+                    th:text="${status.name}">Choose status...</option>
+        </select>
+
+        <p><input type="submit" value="submit"></p>
+
+    </form>
+
+</section>
+</body>
+</html>

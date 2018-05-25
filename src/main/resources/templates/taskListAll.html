@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new task: </h1>
+    <p><a href="/task/add">Add task</a></p>
+
+    <h1>All tasks: </h1>
+
+    <table>
+        <th>
+            <td>Created</td>
+            <td>Topic</td>
+            <td>Project</td>
+            <td>Description</td>
+            <td>Priority</td>
+            <td>User</td>
+            <td>Status</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </th>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}"/>
+            <td th:text="${task.created}"/>
+            <td th:text="${task.topic}"/>
+            <td>
+                <ul>
+                    <li th:each="project : ${projects}">
+                        <p th:text="|Project no: ${project.id}; Name: ${project.name}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td th:text="${task.description}"/>
+            <td>
+                <ul>
+                    <li th:each="priority : ${prioritiesactive}">
+                        <p th:text="|Priority no: ${priority.id}; Name: ${priority.name}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="user : ${users}">
+                        <p th:text="|User no: ${user.id}; Lastname: ${user.lastName}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="status : ${statusall}">
+                        <p th:text="|Status no: ${status.id}; Name: ${status.name}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td><a th:href="@{'/task/edit/'+${task.id}}">edit task</a></td>
+            <td><a th:href="@{'/task/delete/'+${task.id}}">delete task</a></td>
+
+        </tr>
+
+    </table>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <h1>Add new status: </h1>
+    <p><a href="/status/add">Add status</a></p>
+
+    <h1>All status: </h1>
+
+    <table>
+        <th>
+            <td>Name</td>
+            <td>Active status</td>
+            <td>Sorting sequence</td>
+            <td>Tasks</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </th>
+        <tr th:each="status : ${statusall}">
+            <td th:text="${status.id}"/>
+            <td th:text="${status.name}"/>
+            <td th:text="${status.activeStatus}"/>
+            <td th:text="${status.sortingSequence}"/>
+            <td>
+                <ul>
+                    <li th:each="task : ${tasks}">
+                        <p th:text="|Task no: ${task.id}; Topic: ${task.topic}|"></p>
+                    </li>
+                </ul>
+            </td>
+            <td><a th:href="@{'/status/edit/'+${status.id}}">edit status</a></td>
+            <td><a th:href="@{'/status/delete/'+${status.id}}">delete status</a></td>
+        </tr>
+
+    </table>
+
+</section>
+</body>
+</html>
